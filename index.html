@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BlankSpace | Худи. Стиль. Выражение.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --c-bg: #ffffff;
+      --c-text: #1a1a1a;
+      --c-text-muted: #666666;
+      --c-accent: #ff3366; /* розовый акцент */
+      --c-accent-2: #3366ff; /* синий акцент */
+      --c-accent-3: #00cc88; /* зеленый акцент */
+      --c-card: #f8f9fa;
+      --c-border: #eaeaea;
+      --c-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --c-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+      --gap: clamp(16px, 4vw, 28px);
+      --nav-h: 80px;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --btn-h: 52px;
+      --section-pad: clamp(60px, 8vw, 100px);
+      --maxW: 1280px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--c-text);
+      background-color: var(--c-bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .container {
+      width: min(92%, var(--maxW));
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--c-border);
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: var(--c-shadow);
+    }
+    
+    .nav {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      color: var(--c-text);
+    }
+    
+    .brand span {
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--c-accent), var(--c-accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 20px;
+    }
+    
+    .menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--c-text);
+      font-size: 24px;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    
+    .menu-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+    
+    nav a {
+      color: var(--c-text);
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+      padding: 8px 0;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+    
+    .cta {
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      color: white;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.3);
+      transition: var(--transition);
+    }
+    
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255, 51, 102, 0.4);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: calc(var(--section-pad) + 20px) 0 var(--section-pad);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(255, 51, 102, 0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+    }
+    
+    .hero p {
+      color: var(--c-text-muted);
+      font-size: 18px;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      height: var(--btn-h);
+      padding: 0 32px;
+      border-radius: 14px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn.primary {
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      color: white;
+      box-shadow: 0 4px 20px rgba(255, 51, 102, 0.3);
+    }
+    
+    .btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255, 51, 102, 0.4);
+    }
+    
+    .btn.secondary {
+      background: transparent;
+      color: var(--c-text);
+      border: 2px solid var(--c-border);
+    }
+    
+    .btn.secondary:hover {
+      border-color: var(--c-accent);
+      color: var(--c-accent);
+      transform: translateY(-3px);
+    }
+    
+    .hero-image {
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .hero-image img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--c-shadow-hover);
+      transition: var(--transition);
+    }
+    
+    .hero-image:hover img {
+      transform: scale(1.02);
+    }
+    
+    .badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--c-accent-3), #00aa77);
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(0, 204, 136, 0.3);
+      z-index: 2;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .stat-value {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--c-accent);
+    }
+    
+    .stat-label {
+      color: var(--c-text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    /* About Section */
+    .about {
+      padding: var(--section-pad) 0;
+      background-color: #f8f9fa;
+    }
+    
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    
+    .section-subtitle {
+      color: var(--c-text-muted);
+      font-size: 18px;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .feature {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--c-shadow);
+      transition: var(--transition);
+    }
+    
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--c-shadow-hover);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 51, 102, 0.1), rgba(51, 102, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+      color: var(--c-accent);
+    }
+    
+    .feature h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .feature p {
+      color: var(--c-text-muted);
+      font-size: 14px;
+    }
+    
+    /* Catalog Section */
+    .catalog {
+      padding: var(--section-pad) 0;
+    }
+    
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 2px solid var(--c-border);
+      background: transparent;
+      color: var(--c-text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--c-shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--c-shadow-hover);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--c-accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 2;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      padding: 24px;
+    }
+    
+    .product-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .product-category {
+      color: var(--c-text-muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .product-price {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--c-accent);
+      margin-bottom: 16px;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn-cart {
+      flex: 1;
+      background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 51, 102, 0.3);
+    }
+    
+    .btn-view {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 2px solid var(--c-border);
+      background: transparent;
+      color: var(--c-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn-view:hover {
+      border-color: var(--c-accent);
+      color: var(--c-accent);
+    }
+    
+    /* Preview Section */
+    .preview {
+      padding: var(--section-pad) 0;
+      background: linear-gradient(135deg, rgba(255, 51, 102, 0.05), rgba(51, 102, 255, 0.05));
+    }
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    
+    .preview-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--c-shadow);
+      transition: var(--transition);
+    }
+    
+    .preview-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--c-shadow-hover);
+    }
+    
+    .preview-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .preview-content {
+      padding: 24px;
+    }
+    
+    /* Contact Section */
+    .contact {
+      padding: var(--section-pad) 0;
+    }
+    
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255, 51, 102, 0.1), rgba(51, 102, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--c-accent);
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 60px 0 30px;
+      background-color: #111;
+      color: #aaa;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-title {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--c-accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #888;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      .hero-content,
+      .about-content,
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: flex;
+      }
+      
+      nav {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 20px;
+        box-shadow: var(--c-shadow);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+      
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      nav li {
+        width: 100%;
+      }
+      
+      nav a {
+        display: block;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--c-border);
+      }
+      
+      nav a:last-child {
+        border-bottom: none;
+      }
+      
+      .hero-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .section-title {
+        font-size: 28px;
+      }
+    }
+    
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="nav">
+        <a href="#home" class="brand">
+          <div class="logo">B</div>
+          <span>BlankSpace</span>
+        </a>
+        
+        <button class="menu-btn" id="menuBtn" aria-label="Открыть меню">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="nav">
+          <ul>
+            <li><a href="#home" class="nav-link active">Главная</a></li>
+            <li><a href="#about" class="nav-link">О бренде</a></li>
+            <li><a href="#catalog" class="nav-link">Каталог</a></li>
+            <li><a href="#preview" class="nav-link">Коллекции</a></li>
+            <li><a href="#contact" class="nav-link">Контакты</a></li>
+          </ul>
+          <a href="#catalog" class="cta">Купить сейчас</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="fade-in">
+              <span>Твое чистое пространство</span>
+              <span>для самовыражения</span>
+            </h1>
+            <p class="fade-in">BlankSpace — это больше чем просто худи. Это холст для твоего стиля, комфорт для повседневной жизни и качество, которое чувствуется с первого прикосновения.</p>
+            
+            <div class="hero-actions fade-in">
+              <a href="#catalog" class="btn primary">
+                <i class="fas fa-shopping-bag"></i>
+                Смотреть коллекцию
+              </a>
+              <a href="#about" class="btn secondary">
+                <i class="fas fa-play-circle"></i>
+                Узнать о бренде
+              </a>
+            </div>
+            
+            <div class="stats fade-in">
+              <div class="stat">
+                <div class="stat-value">5000+</div>
+                <div class="stat-label">Продаж по России</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">4.9★</div>
+                <div class="stat-label">Средний рейтинг</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">24ч</div>
+                <div class="stat-label">Быстрая доставка</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="hero-image fade-in">
+            <div class="badge">Хит сезона</div>
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=1600&auto=format&fit=crop" alt="Модель в худи BlankSpace">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <h2 class="section-title fade-in">Философия BlankSpace</h2>
+        <p class="section-subtitle fade-in">Мы создаем одежду, которая становится чистым холстом для вашей индивидуальности</p>
+        
+        <div class="about-content">
+          <div class="about-text fade-in">
+            <p>BlankSpace — это концепция чистого пространства в моде. Как чистый лист бумаги, наши худи дают вам свободу самовыражения, а мы обеспечиваем безупречное качество и комфорт.</p>
+            <p>Каждая деталь продумана: от выбора экологичных материалов до анатомического кроя. Мы верим, что настоящий стиль рождается на пересечении комфорта и индивидуальности.</p>
+            
+            <div class="features">
+              <div class="feature">
+                <div class="feature-icon">
+                  <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Чистый дизайн</h3>
+                <p>Минимализм как основа для вашего уникального стиля</p>
+              </div>
+              
+              <div class="feature">
+                <div class="feature-icon">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Экологичность</h3>
+                <p>Органический хлопок и переработанные материалы</p>
+              </div>
+              
+              <div class="feature">
+                <div class="feature-icon">
+                  <i class="fas fa-heart"></i>
+                </div>
+                <h3>Комфорт 24/7</h3>
+                <p>Идеально для города, путешествий и отдыха</p>
+              </div>
+              
+              <div class="feature">
+                <div class="feature-icon">
+                  <i class="fas fa-award"></i>
+                </div>
+                <h3>Гарантия качества</h3>
+                <p>Каждое изделие проверено и протестировано</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="about-image fade-in">
+            <img src="https://images.unsplash.com/photo-1517495306984-433d5349856b?q=80&w-1200&auto=format&fit=crop" alt="Качество материалов BlankSpace" style="border-radius: var(--radius-lg); box-shadow: var(--c-shadow-hover);">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog">
+      <div class="container">
+        <h2 class="section-title fade-in">Коллекция BlankSpace</h2>
+        <p class="section-subtitle fade-in">Выберите свое идеальное худи — чистый холст для вашего стиля</p>
+        
+        <div class="filters fade-in">
+          <button class="filter-btn active" data-filter="all">Все модели</button>
+          <button class="filter-btn" data-filter="unisex">Унисекс</button>
+          <button class="filter-btn" data-filter="men">Мужские</button>
+          <button class="filter-btn" data-filter="women">Женские</button>
+          <button class="filter-btn" data-filter="new">Новинки</button>
+        </div>
+        
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card fade-in" data-type="unisex new">
+            <div class="product-badge">Новинка</div>
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=800&auto=format&fit=crop" alt="Urban Minimal" class="product-image">
+            <div class="product-info">
+              <h3 class="product-title">Urban Minimal</h3>
+              <div class="product-category">Унисекс • Оверсайз • Хлопок</div>
+              <div class="product-price">4 990 ₽</div>
+              <div class="product-actions">
+                <button class="btn-cart">
+                  <i class="fas fa-shopping-cart"></i>
+                  В корзину
+                </button>
+                <button class="btn-view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 2 -->
+          <div class="product-card fade-in" data-type="men">
+            <img src="https://images.unsplash.com/photo-1506368223429-bfa09b7c0ec2?q=80&w=800&auto=format&fit=crop" alt="Monochrome Classic" class="product-image">
+            <div class="product-info">
+              <h3 class="product-title">Monochrome Classic</h3>
+              <div class="product-category">Мужские • Флис • Монохром</div>
+              <div class="product-price">5 490 ₽</div>
+              <div class="product-actions">
+                <button class="btn-cart">
+                  <i class="fas fa-shopping-cart"></i>
+                  В корзину
+                </button>
+                <button class="btn-view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 3 -->
+          <div class="product-card fade-in" data-type="women new">
+            <div class="product-badge">Хит</div>
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=800&auto=format&fit=crop" alt="Soft Essence" class="product-image">
+            <div class="product-info">
+              <h3 class="product-title">Soft Essence</h3>
+              <div class="product-category">Женские • Приталенный • Хлопок 100%</div>
+              <div class="product-price">5 290 ₽</div>
+              <div class="product-actions">
+                <button class="btn-cart">
+                  <i class="fas fa-shopping-cart"></i>
+                  В корзину
+                </button>
+                <button class="btn-view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product 4 -->
+          <div class="product-card fade-in" data-type="unisex">
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=800&auto=format&fit=crop" alt="Winter Canvas" class="product-image">
+            <div class="product-info">
+              <h3 class="product-title">Winter Canvas</h3>
+              <div class="product-category">Унисекс • Утеплённый • Зима</div>
+              <div class="product-price">6 990 ₽</div>
+              <div class="product-actions">
+                <button class="btn-cart">
+                  <i class="fas fa-shopping-cart"></i>
+                  В корзину
+                </button>
+                <button class="btn-view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preview Section -->
+    <section id="preview" class="preview">
+      <div class="container">
+        <h2 class="section-title fade-in">Знаковые модели</h2>
+        <p class="section-subtitle fade-in">Три философии, три подхода, один BlankSpace</p>
+        
+        <div class="preview-grid">
+          <div class="preview-card fade-in">
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=800&auto=format&fit=crop" alt="Urban Minimal" class="preview-image">
+            <div class="preview-content">
+              <h3>Urban Minimal</h3>
+              <p>Идеальная основа городского гардероба. Универсальность и сдержанная элегантность.</p>
+              <a href="#catalog" class="link" style="color: var(--c-accent); font-weight: 700; display: inline-block; margin-top: 12px;">
+                Выбрать размер →
+              </a>
+            </div>
+          </div>
+          
+          <div class="preview-card fade-in">
+            <img src="https://images.unsplash.com/photo-1506368223429-bfa09b7c0ec2?q=80&w=800&auto=format&fit=crop" alt="Monochrome Classic" class="preview-image">
+            <div class="preview-content">
+              <h3>Monochrome Classic</h3>
+              <p>Сила минимализма. Флис премиум-класса для тех, кто ценит лаконичность.</p>
+              <a href="#catalog" class="link" style="color: var(--c-accent); font-weight: 700; display: inline-block; margin-top: 12px;">
+                Выбрать размер →
+              </a>
+            </div>
+          </div>
+          
+          <div class="preview-card fade-in">
+            <img src="https://images.unsplash.com/photo-1519812061168-5b6b5e8a888c?q=80&w=800&auto=format&fit=crop" alt="Soft Essence" class="preview-image">
+            <div class="preview-content">
+              <h3>Soft Essence</h3>
+              <p>Нежность и свобода. Идеальный крой для естественной женственности.</p>
+              <a href="#catalog" class="link" style="color: var(--c-accent); font-weight: 700; display: inline-block; margin-top: 12px;">
+                Выбрать размер →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title fade-in">Найдите свой BlankSpace</h2>
+        
+        <div class="contact-content">
+          <div class="contact-info fade-in">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h3>Флагманский магазин</h3>
+                <p>Москва, ул. Минимальная, 7</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div>
+                <h3>Телефон</h3>
+                <p>+7 (495) 123-45-67</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h3>Email</h3>
+                <p>hello@blankspace.ru</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h3>График работы</h3>
+                <p>Пн–Пт: 10:00–20:00<br>Сб–Вс: 11:00–19:00</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-truck"></i>
+              </div>
+              <div>
+                <h3>Доставка</h3>
+                <p>По всей России • От 1 дня</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-map fade-in">
+            <iframe 
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A3e6c8c1f5c4e0a507b938d33e1f35f39610b6c5578398d93467d3c31c6a8b3f3&amp;source=constructor" 
+              width="100%" 
+              height="400" 
+              frameborder="0" 
+              style="border-radius: var(--radius); border: none;"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <h3 class="footer-title">BlankSpace</h3>
+          <p>Чистое пространство для вашего стиля. Минимализм, комфорт и самовыражение в каждом изделии.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-vk"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="footer-title">Коллекции</h3>
+          <div class="footer-links">
+            <a href="#catalog">Urban Minimal</a>
+            <a href="#catalog">Monochrome Classic</a>
+            <a href="#catalog">Soft Essence</a>
+            <a href="#catalog">Winter Canvas</a>
+            <a href="#catalog">Все модели</a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="footer-title">Помощь</h3>
+          <div class="footer-links">
+            <a href="#">Доставка и оплата</a>
+            <a href="#">Возврат и обмен</a>
+            <a href="#">Размерная сетка</a>
+            <a href="#">Уход за изделиями</a>
+            <a href="#">Консультация стилиста</a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="footer-title">О бренде</h3>
+          <div class="footer-links">
+            <a href="#about">Философия BlankSpace</a>
+            <a href="#">История бренда</a>
+            <a href="#">Устойчивое развитие</a>
+            <a href="#">Вакансии</a>
+            <a href="#">Контакты</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 BlankSpace. Чистое пространство для вашего стиля.</p>
+        <p style="margin-top: 8px; font-size: 14px;">Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const nav = document.getElementById('nav');
+    
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', nav.classList.contains('active'));
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    
+    // Header scroll effect
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // Filter products
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        productCards.forEach(card => {
+          const cardTypes = card.getAttribute('data-type').split(' ');
+          
+          if (filter === 'all' || cardTypes.includes(filter)) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 10);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+    
+    // Add to cart functionality
+    document.querySelectorAll('.btn-cart').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+        
+        // Animation effect
+        this.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+        this.style.background = 'linear-gradient(90deg, #00cc88, #00aa77)';
+        
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
+          this.style.background = 'linear-gradient(90deg, var(--c-accent), var(--c-accent-2))';
+        }, 2000);
+        
+        // Show notification
+        showNotification(`"${productTitle}" добавлено в корзину!`);
+      });
+    });
+    
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2));
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: var(--c-shadow-hover);
+        z-index: 10000;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.transform = 'translateY(0)';
+        notification.style.opacity = '1';
+      }, 10);
+      
+      setTimeout(() => {
+        notification.style.transform = 'translateY(100px)';
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Logo animation on hover
+    const logo = document.querySelector('.logo');
+    logo.addEventListener('mouseenter', () => {
+      logo.style.transform = 'rotate(15deg) scale(1.1)';
+    });
+    
+    logo.addEventListener('mouseleave', () => {
+      logo.style.transform = 'rotate(0) scale(1)';
+    });
+  </script>
+</body>
+</html>
